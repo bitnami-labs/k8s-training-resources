@@ -51,7 +51,9 @@ kubectl config set-context k8s-training-admin --cluster=k8s-training --user=k8s-
 kubectl config use-context k8s-training-admin
 
 # Create a deployment
-kubectl run --image=bitnami/nginx nginx-test --replicas=3 
+kubectl create deployment --image=bitnami/nginx nginx-test
+kubectl scale deployment nginx-test --replicas=3
+
 # Create a service
 kubectl expose deployments nginx-test --port=8080 --type=NodePort
 

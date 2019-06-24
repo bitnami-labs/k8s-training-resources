@@ -97,7 +97,7 @@ export USER_CLUSTER_CA_PATH=$USER_CERT_DIR/ca.crt
 #
 
 ## Kubernetes components
-export KUBERNETES_VERSION=1.14.3
+export KUBERNETES_VERSION=1.15.0
 export KUBERNETES_BASE_URL=https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64
 export KUBE_APISERVER_URL=$KUBERNETES_BASE_URL/kube-apiserver
 export KUBE_CONTROLLER_MANAGER_URL=$KUBERNETES_BASE_URL/kube-controller-manager

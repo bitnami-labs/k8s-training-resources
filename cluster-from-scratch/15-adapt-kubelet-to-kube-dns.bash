@@ -16,7 +16,6 @@ ExecStart=${KUBERNETES_BIN_DIR}/kubelet \\
   --cni-bin-dir=/opt/cni/bin \\
   --client-ca-file=${KUBERNETES_CA_CERT_PATH} \\
   --v=2 \\
-  --allow-privileged=true \\
   --cluster-dns=$COREDNS_SERVICE_IP \\
   --cluster-domain=$CLUSTER_DOMAIN \\
   --resolv-conf=/run/systemd/resolve/resolv.conf
