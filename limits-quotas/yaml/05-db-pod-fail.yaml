@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: database03
+  namespace: team-api
+spec:
+  containers:
+  - name: db
+    image: bitnami/mariadb
+    resources: # requests here
+      requests:
+        memory: "64Mi"
+        cpu: "2"     

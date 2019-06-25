@@ -29,3 +29,7 @@ kubectl top pod
 # Set a limit to the namespace
 
 kubectl create -f yaml/04-limit.yaml
+
+# Try deploying a pod that requires more cpu
+
+kubectl create -f yaml/05-db-pod-fail.yaml
