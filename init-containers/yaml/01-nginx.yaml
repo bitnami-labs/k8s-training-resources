@@ -14,7 +14,7 @@ spec:
     spec:
       initContainers:
       - name: git-clone
-        image: alpine/git
+        image: bitnami/git
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
