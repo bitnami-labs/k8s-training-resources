@@ -18,7 +18,7 @@ spec:
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        command: 
+        entrypoint: 
         - git
         - clone
         - https://github.com/javsalgar/http-example
