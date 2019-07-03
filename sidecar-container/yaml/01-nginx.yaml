@@ -14,11 +14,11 @@ spec:
     spec:
       initContainers:
       - name: git-clone
-        image: alpine/git
+        image: bitnami/git
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        command: 
+        entrypoint: 
         - git
         - clone
         - https://github.com/javsalgar/http-example
@@ -33,11 +33,11 @@ spec:
           mountPath: /app
       # Sidecar
       - name: git-pull
-        image: alpine/git
+        image: bitnami/git
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        command: 
+        entrypoint: 
         - sh
         - -c
         - |
