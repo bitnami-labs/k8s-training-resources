@@ -1,0 +1,40 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: good-create-table
+  labels:
+    app.kubernetes.io/name: good-create-table
+spec:
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: good-create-table
+    spec:
+      containers:
+      - name: mariadb-client
+        image: bitnami/mariadb:latest
+        env:
+        - name: MARIADB_USER
+          value: "vmware-user"
+        - name: MARIADB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mariadb
+              key: user-password
+        - name: MARIADB_DATABASE
+          value: "vmware-database"
+        command:
+         - bash
+         - -ec
+         - |
+            mysql --user="$MARIADB_USER" \
+                  --password="$MARIADB_PASSWORD" \
+                  --database="$MARIADB_DATABASE" \
+                  --host="mariadb" \
+                  --execute="CREATE TABLE IF NOT EXISTS k8s_training_attendees (
+              attendee_id INT(11) NOT NULL AUTO_INCREMENT,
+              attendee_name VARCHAR(255) NOT NULL,
+              attendee_surname VARCHAR(255) NOT NULL,
+              CONSTRAINT attendee_pk  PRIMARY KEY (attendee_id)
+            );" && echo "success!"
+      restartPolicy: Never

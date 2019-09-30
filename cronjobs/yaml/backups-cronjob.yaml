@@ -1,0 +1,45 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: backup-database
+  labels:
+    app.kubernetes.io/name: backup-database
+spec:
+  schedule: "*/1 * * * *"
+  successfulJobsHistoryLimit: 3
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: backup-database
+        spec:
+          securityContext:
+            fsGroup: 1001
+            runAsUser: 1001
+          restartPolicy: OnFailure
+          containers:
+          - name: mariadb-client
+            image: bitnami/mariadb:latest
+            env:
+            - name: MARIADB_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mariadb
+                  key: root-password
+            command:
+             - bash
+             - -ec
+             - |
+                mysqldump --user="root" \
+                          --password="$MARIADB_ROOT_PASSWORD" \
+                          --host="mariadb" \
+                          --all-databases > "/backups/$(date +%s)-backup.sql" && \
+                echo "Successful backup"
+            volumeMounts:
+            - name: backups
+              mountPath: /backups
+          volumes:
+          - name: backups
+            persistentVolumeClaim:
+              claimName: mariadb-backups

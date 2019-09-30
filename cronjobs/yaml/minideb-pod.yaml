@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: minideb
+spec:
+  restartPolicy: Always
+  containers:
+  - image: bitnami/minideb
+    command:
+      - sleep
+      - "3600"
+    imagePullPolicy: IfNotPresent
+    name: minideb
+    volumeMounts:
+    - name: backups
+      mountPath: /backups
+  volumes:
+  - name: backups
+    persistentVolumeClaim:
+      claimName: mariadb-backups

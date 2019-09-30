@@ -1,0 +1,24 @@
+#
+# Advanced Kubernetes training by Bitnami
+#
+# Mariadb service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mariadb-service
+  # We use labels here to classify the service itself as well
+  labels:
+    app: wordpress
+    type: database
+spec:
+  # Use the labels defined in mariadb-deployment.yaml
+  selector:
+    app: wordpress
+    type: database
+  # All traffic entering 3306 of the service will go to db-port of the pod
+  ports:
+  - port: 3306
+    # Naming ports is easier in case the exposed port changes in the pod
+    targetPort: db-port
+  type: ClusterIP # We do not want external access

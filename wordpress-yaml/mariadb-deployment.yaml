@@ -1,0 +1,49 @@
+#
+# Advanced Kubernetes training by Bitnami
+#
+# Exercise: Simple Wordpress + MariaDB Deployment and Services
+#
+# Mariadb deployment
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mariadb-deployment
+  labels:
+    app: wordpress
+    type: database
+spec:
+  # With one replica it is enough
+  replicas: 1
+  selector:
+    matchLabels:
+      app: wordpress
+      type: database
+  # Pod definition
+  template:
+    metadata:
+      # Some basic metadata to be later used with services
+      labels:
+        app: wordpress
+        type: database
+    spec:
+      containers:
+        # Image information
+        - name: mariadb
+          image: bitnami/mariadb:10.1.24-r2
+          # Port information for later use with services
+          ports:
+            - containerPort: 3306
+              name: db-port
+          # Environment variables for configuration
+          env:
+            # Database that will be created
+            # WordPress must use these credentials
+            - name: MARIADB_USER
+              value: bn_wordpress
+            - name: MARIADB_DATABASE
+              value: bitnami_wordpress
+            - name: MARIADB_PASSWORD
+              value: securepassword123
+            - name: MARIADB_ROOT_PASSWORD
+              value: moresecurepassword1234

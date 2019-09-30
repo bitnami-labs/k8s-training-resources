@@ -1,0 +1,29 @@
+#
+# Advanced Kubernetes training by Bitnami
+#
+# Mariadb service
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: wordpress-service
+  # We use labels here to classify the service itself as well
+  labels:
+    app: wordpress
+    type: frontend
+spec:
+  # Use the labels defined in wordpress-deployment.yaml
+  selector:
+    app: wordpress
+    type: frontend
+  ports:
+  # All traffic entering 80 of the service will go to http-port of the pod
+  - name: http-sv-port # Naming is mandatory when there are multiple ports
+    port: 80
+    # Naming ports is easier in case the exposed port changes in the pod
+    targetPort: http-port
+  # All traffic entering 443 of the service will go to https-port of the pod
+  - name: https-sv-port
+    port: 443
+    targetPort: https-port
+  type: NodePort # We want external access
