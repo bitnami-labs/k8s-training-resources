@@ -18,7 +18,7 @@ spec:
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        entrypoint: 
+        command:
         - git
         - clone
         - https://github.com/javsalgar/http-example
@@ -27,7 +27,8 @@ spec:
       - name: nginx
         image: bitnami/nginx
         ports:
-        - containerPort: 8080
+        - name: http
+          containerPort: 8080
         volumeMounts:
         - name: nginx-vol
           mountPath: /app

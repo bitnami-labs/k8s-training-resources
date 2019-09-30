@@ -1,11 +1,7 @@
-# Deploy nginx 
-
-kubectl create ns init-cont-example
-
-kubectl create -n init-cont-example -f yaml/
+# Deploy nginx
+kubectl create -f yaml/
 
 # Check the init containers with kubectl describe
 
-# Delete the namespace
-
-kubectl delete ns init-cont-example
+# Clean up
+kubectl delete -f yaml/

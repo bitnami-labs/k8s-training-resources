@@ -1,11 +1,11 @@
-# Deploy nginx 
+# Deploy nginx
+kubectl create -f yaml/
 
-kubectl create ns sidecar-cont-example
+# Check the containers with kubectl describe
 
-kubectl create -n sidecar-cont-example -f yaml/
+# Access nginx
 
-# Check the init containers with kubectl describe
+# Commit to github
 
-# Delete the namespace
-
-kubectl delete ns sidecar-cont-example
+# Clean up
+kubectl create -f yaml/

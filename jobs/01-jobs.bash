@@ -20,6 +20,10 @@ kubectl create -n job-example -f yaml/02-good-job.yaml
 
 kubectl get pods -n job-example
 
+# Check the pods
+
+kubectl get jobs -n job-example
+
 # Delete the namespace
 
 kubectl delete ns job-example

@@ -14,5 +14,5 @@ spec:
   ports:
   - name: http-sv-port # Naming is mandatory when there are multiple ports
     port: 80
-    targetPort: 8080
+    targetPort: http
   type: NodePort # We want external access

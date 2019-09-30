@@ -18,10 +18,10 @@ spec:
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        entrypoint: 
+        command:
         - git
         - clone
-        - https://github.com/javsalgar/http-example
+        - https://github.com/tompizmor/http-example
         - /app
       containers:
       - name: nginx
@@ -37,13 +37,13 @@ spec:
         volumeMounts:
         - name: nginx-vol
           mountPath: /app
-        entrypoint: 
+        command:
         - sh
         - -c
         - |
-          while true; do 
+          while true; do
             echo Pulling
-            cd /app && git pull && sleep 60; 
+            cd /app && git pull && sleep 20;
           done
       # List of volumes
       volumes:
