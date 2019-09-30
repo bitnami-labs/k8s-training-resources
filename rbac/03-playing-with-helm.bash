@@ -26,20 +26,20 @@ helm ls
 helm install stable/dokuwiki --namespace=test
 kubectl get pods -n test -w
 
-helm install stable/dokuwiki 
+helm install stable/dokuwiki
 kubectl run --image=bitnami/dokuwiki dokuwiki
-kubectl get pods 
+kubectl get pods
 helm install stable/dokuwiki --namespace=kube-system
 
 ## Let's delete tiller
 kubectl config use-context minikube
 helm reset --force
-helm init
+helm init --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
 
-## Let's try now 
+## Let's try now
 helm ls
 kubectl config use-context jsalmeron@minikube
-helm install stable/dokuwiki 
+helm install stable/dokuwiki
 
 ## Let's fix this
 kubectl config use-context minikube
@@ -47,4 +47,4 @@ kubectl create serviceaccount tiller-sa -n kube-system
 kubectl apply -f yaml/09-tiller-clusterrolebinding.yaml
 
 ## Redeploy helm
-helm init --upgrade --service-account tiller-sa
+helm init --service-account tiller-sa --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
