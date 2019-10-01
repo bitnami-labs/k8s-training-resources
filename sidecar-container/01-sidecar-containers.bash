@@ -8,4 +8,4 @@ kubectl create -f yaml/
 # Commit to github
 
 # Clean up
-kubectl create -f yaml/
+kubectl delete -f yaml/
