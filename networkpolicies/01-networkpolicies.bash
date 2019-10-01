@@ -10,12 +10,8 @@ kubectl create -f yaml/example_policy.yaml
 
 kubectl run -ti mysqlclient --image=bitnami/mariadb -- sh
 
-# Use kubectl exec to find the client
-
-kubectl exec -ti <PODNAME> bash
-
 # Run the mysql client
 
-mysql -uroot -h<MYSQL_SERVICE>
+mysql -uroot -h mywp-mariadb
 
 # Check if it works

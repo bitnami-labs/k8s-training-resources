@@ -4,7 +4,7 @@
 # Online Talk part 1: User creation
 #
 
-# At the end of this script, you will have a new user in your 
+# At the end of this script, you will have a new user in your
 # minikube cluster
 
 # We will use jsalmeron as the example user
@@ -19,10 +19,10 @@ openssl genrsa -out ~/.certs/kubernetes/minikube/jsalmeron.key 2048
 openssl req -new -key ~/.certs/kubernetes/minikube/jsalmeron.key -out /tmp/jsalmeron.csr -subj "/CN=jsalmeron/O=devs/O=tech-lead"
 
 ## Certificate
-openssl x509 -req -in /tmp/jsalmeron.csr -CA ~/.minikube/ca.crt -CAkey ~/.minikube/ca.key -CAcreateserial -out ~/.certs/kubernetes/minikube/jsalmeron.crt  -days 500 
+openssl x509 -req -in /tmp/jsalmeron.csr -CA ~/.minikube/ca.crt -CAkey ~/.minikube/ca.key -CAcreateserial -out ~/.certs/kubernetes/minikube/jsalmeron.crt  -days 500
 
 # Check the content of the certificate
-openssl x509 -in "$HOME/.certs/kubernetes/minikube/jsalmeron.crt" -text -noout 
+openssl x509 -in "$HOME/.certs/kubernetes/minikube/jsalmeron.crt" -text -noout
 
 # Add new kubectl context
 
@@ -37,5 +37,5 @@ kubectl config set-context jsalmeron@minikube --cluster=minikube --user=jsalmero
 # Set new context
 kubectl config use-context jsalmeron@minikube
 
-# Try 
+# Try
 kubectl get pods
