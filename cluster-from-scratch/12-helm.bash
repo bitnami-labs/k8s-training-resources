@@ -36,7 +36,8 @@ EOF
 
 kubectl apply -f $TILLER_CLUSTERROLEBINDING_PATH
 
-helm init --upgrade --service-account tiller-sa
+# helm init --upgrade --service-account tiller-sa
+helm init --service-account tiller-sa --override spec.selector.matchLabels.'name'='tiller',spec.selector.matchLabels.'app'='helm' --output yaml | sed 's@apiVersion: extensions/v1beta1@apiVersion: apps/v1@' | kubectl apply -f -
 
 # Try doing helm ls, does it work?
 
