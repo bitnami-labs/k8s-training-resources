@@ -10,4 +10,4 @@ spec:
     resources: # requests here
       requests:
         memory: "64Mi"
-        cpu: "2"     
+        cpu: "2"
