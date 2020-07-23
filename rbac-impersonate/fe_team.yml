@@ -1,0 +1,18 @@
+#@ load("impersonate.lib.yml",
+#@      "ImpersonateCRBinding", "ImpersonateCRole", "RoleBinding"
+#@ )
+
+#@ members = ["alice@example.com", "alanis@example.com"]
+#@ prod_namespace = "prod-app-fe"
+#@ stag_namespace = "staging-app-fe"
+#@ dev_namespace = "dev-app-fe"
+#@ team_user = "app-fe-user"
+
+#! Add impersonation bindings <members> -> team_user
+--- #@ ImpersonateCRBinding(team_user, members)
+--- #@ ImpersonateCRole(team_user)
+
+#! Allow `team_user` to `view` prod NS, `edit` staging NS, and `admin` dev NS
+--- #@ RoleBinding(team_user, prod_namespace, "view")
+--- #@ RoleBinding(team_user, stag_namespace, "edit")
+--- #@ RoleBinding(team_user, dev_namespace, "admin")

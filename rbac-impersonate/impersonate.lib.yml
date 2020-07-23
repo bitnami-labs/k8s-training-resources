@@ -1,0 +1,48 @@
+#@ def ImpersonateCRBinding(team_user, members):
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: #@ "crb-impersonator-" + team_user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: #@ "cr-impersonator-" + team_user
+subjects:
+#@ for user in members:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: #@ user
+#@ end
+#@ end
+
+#@ def ImpersonateCRole(team_user):
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: #@ "cr-impersonator-" + team_user
+rules:
+- apiGroups:
+  - ""
+  verbs:
+  - impersonate
+  resources:
+  - users
+  resourceNames:
+  - #@ team_user
+#@ end
+
+  #@ def RoleBinding(team_user, namespace, clusterrole, kind="ClusterRole"):
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: #@ "rb-{}-{}".format(team_user, clusterrole)
+  namespace: #@ namespace
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: #@ kind
+  name: #@ clusterrole
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: #@ team_user
+#@ end
