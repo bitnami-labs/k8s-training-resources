@@ -1,0 +1,143 @@
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: crb-impersonator-app-fe-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cr-impersonator-app-fe-user
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: alice@example.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: alanis@example.com
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: cr-impersonator-app-fe-user
+rules:
+- apiGroups:
+  - ""
+  verbs:
+  - impersonate
+  resources:
+  - users
+  resourceNames:
+  - app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-view
+  namespace: prod-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-edit
+  namespace: staging-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-admin
+  namespace: dev-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: crb-impersonator-app-fe-user
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cr-impersonator-app-fe-user
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: alice@example.com
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: alanis@example.com
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRole
+metadata:
+  name: cr-impersonator-app-fe-user
+rules:
+- apiGroups:
+  - ""
+  verbs:
+  - impersonate
+  resources:
+  - users
+  resourceNames:
+  - app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-view
+  namespace: prod-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: view
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-edit
+  namespace: staging-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: edit
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
+---
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: RoleBinding
+metadata:
+  name: rb-app-fe-user-admin
+  namespace: dev-app-fe
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: admin
+subjects:
+- apiGroup: rbac.authorization.k8s.io
+  kind: User
+  name: app-fe-user
